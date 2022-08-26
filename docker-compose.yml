@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: pnpm start
+    ports:
+      - 3000:3000
+    working_dir: /src
+    volumes:
+      - ${PWD}/:/src
+    environment:
+      PORT: 3000
