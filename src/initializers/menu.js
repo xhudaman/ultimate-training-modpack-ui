@@ -283,50 +283,74 @@ const tabMap = {
     {
       name: "falling_aerials",
       label: "Falling Aerials",
-      options: [],
+      options: [
+        { label: "True", value: 1 },
+        { label: "False", value: 2 },
+      ],
       isSingleOption: false,
     },
     {
       name: "full_hop",
       label: "Full Hop",
-      options: [],
+      options: [
+        { label: "True", value: 1 },
+        { label: "False", value: 2 },
+      ],
       isSingleOption: false,
     },
     {
       name: "aerial_delay",
       label: "Aerial Delay",
-      options: [],
+      options: getArrayOfNumbers(0, 30, 1).map((number, index) => ({
+        label: number,
+        value: index === 0 ? 1 : 2 ** index,
+      })),
       isSingleOption: false,
     },
     {
       name: "fast_fall",
       label: "Fast Fall",
-      options: [],
+      options: [
+        { label: "True", value: 1 },
+        { label: "False", value: 2 },
+      ],
       isSingleOption: false,
     },
     {
       name: "fast_fall_delay",
       label: "Fast Fall Delay",
-      options: [],
+      options: getArrayOfNumbers(0, 30, 1).map((number, index) => ({
+        label: number,
+        value: index === 0 ? 1 : 2 ** index,
+      })),
       isSingleOption: false,
     },
     {
       name: "oos_offset",
       label: "OoS Offset",
-      options: [],
+      options: getArrayOfNumbers(0, 30, 1).map((number, index) => ({
+        label: number,
+        value: index === 0 ? 1 : 2 ** index,
+      })),
       isSingleOption: false,
     },
     {
       name: "reaction_time",
       label: "Reaction Time",
-      options: [],
+      options: getArrayOfNumbers(0, 30, 1).map((number, index) => ({
+        label: number,
+        value: index === 0 ? 1 : 2 ** index,
+      })),
       isSingleOption: false,
     },
     {
       name: "mash_in_neutral",
       label: "Mash In neutral",
-      options: [],
-      isSingleOption: false,
+      options: [
+        { label: "True", value: 1 },
+        { label: "False", value: 2 },
+      ],
+      isSingleOption: true,
     },
   ],
   defensive: [
