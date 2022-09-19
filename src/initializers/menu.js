@@ -1,4 +1,4 @@
-import { getArrayOfNumbers } from "../lib/arrayOfNums";
+import { getArrayOfNumbers } from "../lib/arrayOfNumbers";
 
 const tabMap = {
   mash: [
