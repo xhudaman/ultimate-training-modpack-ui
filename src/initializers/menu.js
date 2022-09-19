@@ -443,56 +443,135 @@ const tabMap = {
     {
       name: "save_state_mirroring",
       label: "Mirroring",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "None",
+          value: 0,
+        },
+        {
+          label: "Alternate",
+          value: 1,
+        },
+        {
+          label: "Random",
+          value: 2,
+        },
+      ],
+      isSingleOption: true,
     },
     {
       name: "save_damage",
       label: "Save Damage",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "On",
+          value: 1,
+        },
+        {
+          label: "Off",
+          value: 0,
+        },
+      ],
+      isSingleOption: true,
     },
     {
       name: "save_state_enable",
       label: "Enable Save States",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "On",
+          value: 1,
+        },
+        {
+          label: "Off",
+          value: 0,
+        },
+      ],
+      isSingleOption: true,
     },
     {
       name: "save_state_autoload",
       label: "Save States Autoload",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "On",
+          value: 1,
+        },
+        {
+          label: "Off",
+          value: 0,
+        },
+      ],
+      isSingleOption: true,
     },
     {
       name: "frame_advantage",
       label: "Frame Advantage",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "On",
+          value: 1,
+        },
+        {
+          label: "Off",
+          value: 0,
+        },
+      ],
+      isSingleOption: true,
     },
     {
       name: "hitbox_vis",
       label: "Hitbox Visualization",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "On",
+          value: 1,
+        },
+        {
+          label: "Off",
+          value: 0,
+        },
+      ],
+      isSingleOption: true,
     },
     {
       name: "input_delay",
       label: "Input Delay",
-      options: [],
-      isSingleOption: false,
+      options: getArrayOfNumbers(0, 30, 1).map((number, index) => ({
+        label: number,
+        value: index === 0 ? 1 : 2 ** index,
+      })),
+      isSingleOption: true,
     },
     {
       name: "stage_hazards",
       label: "Stage Hazards",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "On",
+          value: 1,
+        },
+        {
+          label: "Off",
+          value: 0,
+        },
+      ],
+      isSingleOption: true,
     },
     {
       name: "quick_menu",
       label: "Quick Menu",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "On",
+          value: 1,
+        },
+        {
+          label: "Off",
+          value: 0,
+        },
+      ],
+      isSingleOption: true,
     },
   ],
 };
