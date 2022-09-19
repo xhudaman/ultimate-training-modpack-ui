@@ -1,13 +1,14 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, Fragment } from "react";
 import Footer from "./footer";
 import Header from "./header";
 import MenuButton from "./inputs/menuButton";
 import { twClassNames } from "../lib/tailwindClassNames";
+import { useMenuContext } from "../contexts/menu.context";
 
 const defaultHelpText = "Default help text.";
 
-const App = ({ _menu }) => {
-  const [menu, setMenu] = useState(_menu);
+const App = () => {
+  const [menu, setMenu] = useMenuContext();
   const [currentTab, setCurrentTab] = useState("mash");
   const [focusedMenu, setFocusedMenu] = useState(false);
   const [helpText, setHelpText] = useState(defaultHelpText);
@@ -52,17 +53,34 @@ const App = ({ _menu }) => {
     console.log("exiting");
   };
 
-  const isInMask = (value) => (focusedMenu.mask & value) != 0;
+  // True if value is in mask or
+  // Both the mask and current value are 0 (single option is off)
+  const isInMask = (value) =>
+    (focusedMenu.mask & value) != 0 || (focusedMenu.mask === 0 && value === 0);
 
   const handleClickOption = (value) => {
     const updatedMenu = { ...menu };
     const menuItemIndex = updatedMenu[currentTab].findIndex(
       (item) => item.name === focusedMenu.name
     );
-    const currentMask = updatedMenu[currentTab][menuItemIndex].mask;
-    updatedMenu[currentTab][menuItemIndex].mask = isInMask(value)
-      ? currentMask - value
-      : currentMask + value;
+    const menuItem = updatedMenu[currentTab][menuItemIndex];
+    const currentMask = menuItem.mask;
+
+    menuItem.mask = isInMask(value) ? currentMask - value : currentMask + value;
+
+    if (menuItem.isSingleOption) {
+      menuItem.options.forEach((option) => {
+        // Don't run on the toggled option
+        if (option.value === value) return;
+
+        // Remove from mask if it includes the unselected option
+        if (isInMask(option.value)) {
+          menuItem.mask -= option.value;
+        }
+      });
+    }
+
+    updatedMenu[currentTab][menuItemIndex] = menuItem;
 
     setMenu(updatedMenu);
   };
@@ -93,31 +111,33 @@ const App = ({ _menu }) => {
   return (
     <div className="app bg-gray-200">
       <Header />
-      <div className="flex justify-start items-center h-[40px] bg-gray-600">
-        {tabs.map((tabName) => (
-          <button
-            key={tabName}
-            className={twClassNames([
-              "mx-1 px-4 py-2 rounded-t-lg bg-gray-600 hover:bg-gray-200 text-gray-200 hover:text-gray-600",
-              tabName === currentTab && "bg-gray-200 text-gray-600",
-            ])}
-            onClick={() => handleOpenTab(tabName)}
-          >
-            <span className="capitalize">{tabName}</span>
-          </button>
-        ))}
-      </div>
+      {!focusedMenu && (
+        <div className="flex justify-start items-center h-[40px] bg-gray-600">
+          {tabs.map((tabName) => (
+            <button
+              key={tabName}
+              className={twClassNames([
+                "mx-1 px-4 py-2 rounded-t-lg bg-gray-600 hover:bg-gray-200 text-gray-200 hover:text-gray-600",
+                tabName === currentTab && "bg-gray-200 text-gray-600",
+              ])}
+              onClick={() => handleOpenTab(tabName)}
+            >
+              <span className="capitalize">{tabName}</span>
+            </button>
+          ))}
+        </div>
+      )}
       {menu && (
         <div
           className={twClassNames(
-            "h-[513px] flex flex-wrap justify-center items-center",
+            "h-[554px] flex flex-wrap justify-center items-center",
             focusedMenu && "hidden"
           )}
         >
           {menu[currentTab].map(({ name, label }) => (
             <MenuButton
               key={name}
-              classNames="basis-[23%] mx-2 p-[0.25rem]"
+              classNames="basis-[23%] mx-2 p-1"
               handleClick={() => {
                 setFocusedMenu(
                   menu[currentTab].find((item) => item.name === name)
@@ -135,11 +155,10 @@ const App = ({ _menu }) => {
               </div>
             </MenuButton>
           ))}
-          <Footer helpText={helpText} />
         </div>
       )}
       {focusedMenu && (
-        <div className="h-[627px] bg-black/60 flex flex-wrap justify-center items-center">
+        <div className="h-[594px] bg-black/60 flex flex-wrap justify-center items-center">
           {focusedMenu.options.map(({ label, value }) => (
             <MenuButton
               key={label}
@@ -161,6 +180,7 @@ const App = ({ _menu }) => {
           ))}
         </div>
       )}
+      <Footer helpText={helpText} />
     </div>
   );
 };

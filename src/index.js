@@ -3,12 +3,14 @@ import App from "./components/app";
 import "./styles/index.css";
 import "./styles/app.css";
 import { initializeNx } from "./initializers/nx";
-import { loadMenu } from "./initializers/menu";
+import { MenuContextProvider } from "./contexts/menu.context";
 
 // initializeNx();
 
-const menu = loadMenu();
-
 const root = createRoot(document.getElementById("root"));
 
-root.render(<App _menu={menu} />);
+root.render(
+  <MenuContextProvider>
+    <App />
+  </MenuContextProvider>
+);
