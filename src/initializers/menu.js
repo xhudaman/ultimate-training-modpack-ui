@@ -357,86 +357,502 @@ const tabMap = {
     {
       name: "air_dodge_dir",
       label: "Airdodge Direction",
-      options: [],
+      options: [
+        {
+          label: "Away",
+          value: 1,
+        },
+        {
+          label: "Up and Away",
+          value: 2,
+        },
+        {
+          label: "Up",
+          value: 4,
+        },
+        {
+          label: "Up and In",
+          value: 8,
+        },
+        {
+          label: "In",
+          value: 16,
+        },
+        {
+          label: "Down and In",
+          value: 32,
+        },
+        {
+          label: "Down",
+          value: 64,
+        },
+        {
+          label: "Down and Away",
+          value: 128,
+        },
+        {
+          label: "Neutral",
+          value: 256,
+        },
+        {
+          label: "Left",
+          value: 512,
+        },
+        {
+          label: "Right",
+          value: 1024,
+        },
+      ],
       isSingleOption: false,
     },
     {
       name: "di_state",
       label: "DI Direction",
-      options: [],
+      options: [
+        {
+          label: "Away",
+          value: 1,
+        },
+        {
+          label: "Up and Away",
+          value: 2,
+        },
+        {
+          label: "Up",
+          value: 4,
+        },
+        {
+          label: "Up and In",
+          value: 8,
+        },
+        {
+          label: "In",
+          value: 16,
+        },
+        {
+          label: "Down and In",
+          value: 32,
+        },
+        {
+          label: "Down",
+          value: 64,
+        },
+        {
+          label: "Down and Away",
+          value: 128,
+        },
+        {
+          label: "Neutral",
+          value: 256,
+        },
+        {
+          label: "Left",
+          value: 512,
+        },
+        {
+          label: "Right",
+          value: 1024,
+        },
+      ],
       isSingleOption: false,
     },
     {
       name: "sdi_state",
       label: "SDI Direction",
-      options: [],
+      options: [
+        {
+          label: "Away",
+          value: 1,
+        },
+        {
+          label: "Up and Away",
+          value: 2,
+        },
+        {
+          label: "Up",
+          value: 4,
+        },
+        {
+          label: "Up and In",
+          value: 8,
+        },
+        {
+          label: "In",
+          value: 16,
+        },
+        {
+          label: "Down and In",
+          value: 32,
+        },
+        {
+          label: "Down",
+          value: 64,
+        },
+        {
+          label: "Down and Away",
+          value: 128,
+        },
+        {
+          label: "Neutral",
+          value: 256,
+        },
+        {
+          label: "Left",
+          value: 512,
+        },
+        {
+          label: "Right",
+          value: 1024,
+        },
+      ],
       isSingleOption: false,
     },
     {
       name: "sdi_strength",
       label: "SDI Strength",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "None",
+          value: 0,
+        },
+        {
+          label: "Normal",
+          value: 1,
+        },
+        {
+          label: "Medium",
+          value: 2,
+        },
+        {
+          label: "High",
+          value: 4,
+        },
+      ],
+      isSingleOption: true,
     },
     {
       name: "clatter_strength",
       label: "Clatter Strength",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "None",
+          value: 0,
+        },
+        {
+          label: "Normal",
+          value: 1,
+        },
+        {
+          label: "Medium",
+          value: 2,
+        },
+        {
+          label: "High",
+          value: 4,
+        },
+      ],
+      isSingleOption: true,
     },
     {
       name: "ledge_state",
       label: "Ledge Options",
-      options: [],
+      options: [
+        {
+          label: "Neutral Getup",
+          value: 1,
+        },
+        {
+          label: "Roll",
+          value: 2,
+        },
+        {
+          label: "Jump",
+          value: 4,
+        },
+        {
+          label: "Getup Attack",
+          value: 8,
+        },
+        {
+          label: "Wait",
+          value: 16,
+        },
+      ],
       isSingleOption: false,
     },
     {
       name: "ledge_delay",
       label: "Ledge Delay",
-      options: [],
+      options: getArrayOfNumbers(0, 300, 10).map((number, index) => ({
+        label: number,
+        value: index === 0 ? 1 : 2 ** index,
+      })),
       isSingleOption: false,
     },
     {
       name: "tech_state",
       label: "Tech Options",
-      options: [],
+      options: [
+        {
+          label: "No Tech",
+          value: 1,
+        },
+        {
+          label: "Roll Forwards",
+          value: 2,
+        },
+        {
+          label: "Roll Backwards",
+          value: 4,
+        },
+        {
+          label: "Tech In Place",
+          value: 8,
+        },
+      ],
       isSingleOption: false,
     },
     {
       name: "miss_tech_state",
       label: "Mistech Options",
-      options: [],
+      options: [
+        {
+          label: "Neutral Getup",
+          value: 1,
+        },
+        {
+          label: "Getup Attack",
+          value: 2,
+        },
+        {
+          label: "Roll Forwards",
+          value: 4,
+        },
+        {
+          label: "Roll Backwards",
+          value: 8,
+        },
+      ],
       isSingleOption: false,
     },
     {
       name: "shield_state",
       label: "Shield Toggles",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "None",
+          value: 0,
+        },
+        {
+          label: "Infinite",
+          value: 1,
+        },
+        {
+          label: "Hold",
+          value: 2,
+        },
+        {
+          label: "Constant",
+          value: 4,
+        },
+      ],
+      isSingleOption: true,
     },
     {
       name: "shield_tilt",
       label: "Shield Tilt",
-      options: [],
+      options: [
+        {
+          label: "Away",
+          value: 1,
+        },
+        {
+          label: "Up and Away",
+          value: 2,
+        },
+        {
+          label: "Up",
+          value: 4,
+        },
+        {
+          label: "Up and In",
+          value: 8,
+        },
+        {
+          label: "In",
+          value: 16,
+        },
+        {
+          label: "Down and In",
+          value: 32,
+        },
+        {
+          label: "Down",
+          value: 64,
+        },
+        {
+          label: "Down and Away",
+          value: 128,
+        },
+        {
+          label: "Neutral",
+          value: 256,
+        },
+        {
+          label: "Left",
+          value: 512,
+        },
+        {
+          label: "Right",
+          value: 1024,
+        },
+      ],
       isSingleOption: false,
     },
     {
       name: "defensive_state",
       label: "Escape Toggles",
-      options: [],
+      options: [
+        {
+          label: "Spotdodge",
+          value: 1,
+        },
+        {
+          label: "Roll Forwards",
+          value: 2,
+        },
+        {
+          label: "Roll Backwards",
+          value: 4,
+        },
+        {
+          label: "Jab",
+          value: 8,
+        },
+        {
+          label: "Shield",
+          value: 16,
+        },
+      ],
       isSingleOption: false,
     },
     {
       name: "buff_state",
       label: "Buff Options",
-      options: [],
+      options: [
+        {
+          label: "Acceleratle",
+          value: 1,
+        },
+        {
+          label: "Oomph",
+          value: 2,
+        },
+        {
+          label: "Psyche Up",
+          value: 4,
+        },
+        {
+          label: "Bounce",
+          value: 8,
+        },
+        {
+          label: "Arsene",
+          value: 16,
+        },
+        {
+          label: "Deep Breathing",
+          value: 32,
+        },
+        {
+          label: "Limit Break",
+          value: 64,
+        },
+        {
+          label: "KO Punch",
+          value: 128,
+        },
+        {
+          label: "One-Winged Angel",
+          value: 256,
+        },
+      ],
       isSingleOption: false,
     },
     {
       name: "character_item",
       label: "Character Item",
-      options: [],
-      isSingleOption: false,
+      options: [
+        {
+          label: "None",
+          value: 0,
+        },
+        {
+          label: "Player 1st Var.",
+          value: 1,
+        },
+        {
+          label: "Player 2nd Var.",
+          value: 2,
+        },
+        {
+          label: "Player 3rd Var.",
+          value: 4,
+        },
+        {
+          label: "Player 4th Var.",
+          value: 8,
+        },
+        {
+          label: "Player 5th Var.",
+          value: 16,
+        },
+        {
+          label: "Player 6th Var.",
+          value: 32,
+        },
+        {
+          label: "Player 7th Var.",
+          value: 64,
+        },
+        {
+          label: "Player 8th Var.",
+          value: 128,
+        },
+        {
+          label: "CPU 1st Var.",
+          value: 256,
+        },
+        {
+          label: "CPU 2nd Var.",
+          value: 512,
+        },
+        {
+          label: "CPU 3rd Var.",
+          value: 1024,
+        },
+        {
+          label: "CPU 4th Var.",
+          value: 2048,
+        },
+        {
+          label: "CPU 5th Var.",
+          value: 4096,
+        },
+        {
+          label: "CPU 6th Var.",
+          value: 8192,
+        },
+        {
+          label: "CPU 7th Var.",
+          value: 16384,
+        },
+        {
+          label: "CPU 8th Var.",
+          value: 32768,
+        },
+      ],
+      isSingleOption: true,
     },
   ],
   misc: [
