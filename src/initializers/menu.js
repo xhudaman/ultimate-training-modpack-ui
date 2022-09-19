@@ -347,8 +347,8 @@ const tabMap = {
       name: "mash_in_neutral",
       label: "Mash In neutral",
       options: [
-        { label: "True", value: 1 },
-        { label: "False", value: 2 },
+        { label: "On", value: 1 },
+        { label: "Off", value: 0 },
       ],
       isSingleOption: true,
     },
