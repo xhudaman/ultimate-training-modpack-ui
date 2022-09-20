@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, createContext, useContext } from "react";
 import { loadMenu } from "../initializers/menu";
 
 const MenuContext = createContext();
@@ -15,10 +15,6 @@ const useMenuContext = () => {
 
 const MenuContextProvider = ({ children }) => {
   const [menu, setMenu] = useState(loadMenu());
-  let nx;
-  useEffect(() => {
-    // Create menu from URL search params
-  }, []);
 
   const value = [menu, setMenu];
 
