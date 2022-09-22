@@ -134,7 +134,7 @@ const App = () => {
             focusedMenu && "hidden"
           )}
         >
-          {menu[currentTab].map(({ name, label }) => (
+          {menu[currentTab].map(({ name, label, helpText }) => (
             <MenuButton
               key={name}
               classNames="basis-[23%] mx-2 p-1"
@@ -143,7 +143,7 @@ const App = () => {
                   menu[currentTab].find((item) => item.name === name)
                 );
               }}
-              handleFocus={() => setHelpText(label)}
+              handleFocus={() => setHelpText(helpText || label)}
             >
               <div className="flex justify-start items-center w-full h-full">
                 <img

@@ -5,6 +5,7 @@ const tabMap = {
     {
       name: "mash_state",
       label: "Mash Toggles",
+      helpText: "Mash Toggles: Actions to be performed as soon as possible",
       options: [
         {
           label: "Airdodge",
@@ -112,6 +113,8 @@ const tabMap = {
     {
       name: "follow_up",
       label: "Follow Up Toggles",
+      helpText:
+        "Followup Toggles: Actions to be performed after the Mash option",
       options: [
         {
           label: "Airdodge",
@@ -219,6 +222,8 @@ const tabMap = {
     {
       name: "attack_angle",
       label: "Attack Angle",
+      helpText:
+        "Attack Angle: For attacks that can be angled, such as some forward tilts",
       options: [
         {
           label: "Neutral",
@@ -238,6 +243,7 @@ const tabMap = {
     {
       name: "throw_state",
       label: "Throw Options",
+      helpText: "Throw Options: Throw to be performed when a grab is landed",
       options: [
         {
           label: "None",
@@ -265,6 +271,7 @@ const tabMap = {
     {
       name: "throw_delay",
       label: "Throw Delay",
+      helpText: "Throw Delay: How many frames to delay the throw option",
       options: getArrayOfNumbers(0, 150, 5).map((number, index) => ({
         label: number,
         value: index === 0 ? 1 : 2 ** index,
@@ -274,6 +281,8 @@ const tabMap = {
     {
       name: "pummel_delay",
       label: "Pummel Delay",
+      helpText:
+        "Pummel Delay: How many frames after a grab to wait before starting to pummel",
       options: getArrayOfNumbers(0, 150, 5).map((number, index) => ({
         label: number,
         value: index === 0 ? 1 : 2 ** index,
@@ -283,6 +292,8 @@ const tabMap = {
     {
       name: "falling_aerials",
       label: "Falling Aerials",
+      helpText:
+        "Falling Aerials: Should aerials be performed when rising or when falling",
       options: [
         { label: "True", value: 1 },
         { label: "False", value: 2 },
@@ -292,6 +303,7 @@ const tabMap = {
     {
       name: "full_hop",
       label: "Full Hop",
+      helpText: "Full Hop: Should the CPU perform a full hop or a short hop",
       options: [
         { label: "True", value: 1 },
         { label: "False", value: 2 },
@@ -301,6 +313,7 @@ const tabMap = {
     {
       name: "aerial_delay",
       label: "Aerial Delay",
+      helpText: "Aerial Delay: How long to delay a Mash aerial attack",
       options: getArrayOfNumbers(0, 30, 1).map((number, index) => ({
         label: number,
         value: index === 0 ? 1 : 2 ** index,
@@ -310,6 +323,7 @@ const tabMap = {
     {
       name: "fast_fall",
       label: "Fast Fall",
+      helpText: "Fast Fall: Should the CPU fastfall during a jump",
       options: [
         { label: "True", value: 1 },
         { label: "False", value: 2 },
@@ -319,6 +333,8 @@ const tabMap = {
     {
       name: "fast_fall_delay",
       label: "Fast Fall Delay",
+      helpText:
+        "Fast Fall Delay: How many frames the CPU should delay their fastfall",
       options: getArrayOfNumbers(0, 30, 1).map((number, index) => ({
         label: number,
         value: index === 0 ? 1 : 2 ** index,
@@ -328,6 +344,8 @@ const tabMap = {
     {
       name: "oos_offset",
       label: "OoS Offset",
+      helpText:
+        "OoS Offset: How many times the CPU shield can be hit before performing a Mash option",
       options: getArrayOfNumbers(0, 30, 1).map((number, index) => ({
         label: number,
         value: index === 0 ? 1 : 2 ** index,
@@ -337,6 +355,8 @@ const tabMap = {
     {
       name: "reaction_time",
       label: "Reaction Time",
+      helpText:
+        "Reaction Time: How many frames to delay before performing a mash option",
       options: getArrayOfNumbers(0, 30, 1).map((number, index) => ({
         label: number,
         value: index === 0 ? 1 : 2 ** index,
@@ -346,6 +366,8 @@ const tabMap = {
     {
       name: "mash_in_neutral",
       label: "Mash In neutral",
+      helpText:
+        "Mash In Neutral: Should Mash options be performed repeatedly or only when the CPU is hit",
       options: [
         { label: "On", value: 1 },
         { label: "Off", value: 0 },
