@@ -881,6 +881,8 @@ const tabMap = {
     {
       name: "save_state_mirroring",
       label: "Mirroring",
+      helpText:
+        "Mirroring: Flips save states in the left-right direction across the stage center",
       options: [
         {
           label: "None",
@@ -900,6 +902,7 @@ const tabMap = {
     {
       name: "save_damage",
       label: "Save Damage",
+      helpText: "Save Damage: Should save states retain player/CPU damage",
       options: [
         {
           label: "On",
@@ -915,6 +918,8 @@ const tabMap = {
     {
       name: "save_state_enable",
       label: "Enable Save States",
+      helpText:
+        "Save States: Enable save states! Save a state with Grab+Down Taunt, load it with Grab+Up Taunt.",
       options: [
         {
           label: "On",
@@ -930,6 +935,7 @@ const tabMap = {
     {
       name: "save_state_autoload",
       label: "Save States Autoload",
+      helpText: "Save States Autoload: Load save state when any fighter dies",
       options: [
         {
           label: "On",
@@ -945,6 +951,8 @@ const tabMap = {
     {
       name: "frame_advantage",
       label: "Frame Advantage",
+      helpText:
+        "Frame Advantage: Display the time difference between when the player is actionable and the CPU is actionable",
       options: [
         {
           label: "On",
@@ -960,6 +968,8 @@ const tabMap = {
     {
       name: "hitbox_vis",
       label: "Hitbox Visualization",
+      helpText:
+        "Hitbox Visualization: Should hitboxes be displayed, hiding other visual effects",
       options: [
         {
           label: "On",
@@ -975,6 +985,7 @@ const tabMap = {
     {
       name: "input_delay",
       label: "Input Delay",
+      helpText: "Input Delay: Frames to delay player inputs by",
       options: getArrayOfNumbers(0, 30, 1).map((number, index) => ({
         label: number,
         value: index === 0 ? 1 : 2 ** index,
@@ -984,6 +995,7 @@ const tabMap = {
     {
       name: "stage_hazards",
       label: "Stage Hazards",
+      helpText: "Stage Hazards: Should stage hazards be present",
       options: [
         {
           label: "On",
@@ -999,6 +1011,7 @@ const tabMap = {
     {
       name: "quick_menu",
       label: "Quick Menu",
+      helpText: "Quick Menu: Should use quick or web menu",
       options: [
         {
           label: "On",
