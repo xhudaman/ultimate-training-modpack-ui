@@ -143,7 +143,7 @@ const App = () => {
                   menu[currentTab].find((item) => item.name === name)
                 );
               }}
-              handleFocus={() => setHelpText(helpText || label)}
+              handleFocus={() => setHelpText(helpText)}
             >
               <div className="flex justify-start items-center w-full h-full">
                 <img

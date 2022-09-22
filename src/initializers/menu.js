@@ -379,6 +379,7 @@ const tabMap = {
     {
       name: "air_dodge_dir",
       label: "Airdodge Direction",
+      helpText: "Airdodge Direction: Direction to angle airdodges",
       options: [
         {
           label: "Away",
@@ -430,6 +431,8 @@ const tabMap = {
     {
       name: "di_state",
       label: "DI Direction",
+      helpText:
+        "DI Direction: Direction to angle the directional influence during hitlag",
       options: [
         {
           label: "Away",
@@ -481,6 +484,8 @@ const tabMap = {
     {
       name: "sdi_state",
       label: "SDI Direction",
+      helpText:
+        "SDI Direction: Direction to angle the smash directional influence during hitlag",
       options: [
         {
           label: "Away",
@@ -532,6 +537,8 @@ const tabMap = {
     {
       name: "sdi_strength",
       label: "SDI Strength",
+      helpText:
+        "SDI Strength: Relative strength of the smash directional influence inputs",
       options: [
         {
           label: "None",
@@ -555,6 +562,8 @@ const tabMap = {
     {
       name: "clatter_strength",
       label: "Clatter Strength",
+      helpText:
+        "Clatter Strength: Relative strength of the mashing out of grabs, buries, etc.",
       options: [
         {
           label: "None",
@@ -578,6 +587,7 @@ const tabMap = {
     {
       name: "ledge_state",
       label: "Ledge Options",
+      helpText: "Ledge Options: Actions to be taken when on the ledge",
       options: [
         {
           label: "Neutral Getup",
@@ -605,6 +615,7 @@ const tabMap = {
     {
       name: "ledge_delay",
       label: "Ledge Delay",
+      helpText: "Ledge Delay: How many frames to delay the ledge option",
       options: getArrayOfNumbers(0, 300, 10).map((number, index) => ({
         label: number,
         value: index === 0 ? 1 : 2 ** index,
@@ -614,6 +625,8 @@ const tabMap = {
     {
       name: "tech_state",
       label: "Tech Options",
+      helpText:
+        "Tech Options: Actions to take when slammed into a hard surface",
       options: [
         {
           label: "No Tech",
@@ -637,6 +650,7 @@ const tabMap = {
     {
       name: "miss_tech_state",
       label: "Mistech Options",
+      helpText: "Mistech Options: Actions to take after missing a tech",
       options: [
         {
           label: "Neutral Getup",
@@ -660,6 +674,7 @@ const tabMap = {
     {
       name: "shield_state",
       label: "Shield Toggles",
+      helpText: "Shield Toggles: CPU Shield Behavior",
       options: [
         {
           label: "None",
@@ -683,6 +698,7 @@ const tabMap = {
     {
       name: "shield_tilt",
       label: "Shield Tilt",
+      helpText: "Shield Tilt: Direction to tilt the shield",
       options: [
         {
           label: "Away",
@@ -734,6 +750,8 @@ const tabMap = {
     {
       name: "defensive_state",
       label: "Escape Toggles",
+      helpText:
+        "Escape Options: Actions to take after a ledge option, tech option, or mistech option",
       options: [
         {
           label: "Spotdodge",
@@ -761,6 +779,8 @@ const tabMap = {
     {
       name: "buff_state",
       label: "Buff Options",
+      helpText:
+        "Buff Options: Buff(s) to be applied to respective character when loading save states",
       options: [
         {
           label: "Acceleratle",
@@ -804,6 +824,8 @@ const tabMap = {
     {
       name: "character_item",
       label: "Character Item",
+      helpText:
+        "Character Item: CPU/Player item to hold when loading a save state",
       options: [
         {
           label: "None",
