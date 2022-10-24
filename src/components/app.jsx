@@ -5,6 +5,7 @@ import MenuButton from "./inputs/menuButton";
 import { twClassNames } from "../lib/tailwindClassNames";
 import { useMenuContext, useNxContext } from "../contexts";
 import { getConfigFromMenu } from "../initializers/menu";
+import deepCopy from "../utils/deepCopy";
 
 const App = () => {
   const { menus, isMenuLoading } = useMenuContext();
@@ -105,8 +106,8 @@ const App = () => {
   const resetCurrentMenu = () => {
     if (activeMenu) {
       const updatedMenu = { ...menu };
-      const newActive = defaultsMenu[currentTab].find(
-        (item) => item.name === activeMenu.name
+      const newActive = deepCopy(
+        defaultsMenu[currentTab].find((item) => item.name === activeMenu.name)
       );
       const newActiveIndex = updatedMenu[currentTab].findIndex(
         (item) => item.name === newActive.name
@@ -118,8 +119,8 @@ const App = () => {
       setMenu(updatedMenu);
     }
   };
-  const resetAllMenus = () => setMenu(defaultsMenu);
-  const saveDefaults = () => setDefaultsMenu(JSON.parse(JSON.stringify(menu)));
+  const resetAllMenus = () => setMenu(deepCopy(defaultsMenu));
+  const saveDefaults = () => setDefaultsMenu(deepCopy(menu));
 
   useEffect(() => {
     if (isNxAvailable) {
@@ -165,7 +166,18 @@ const App = () => {
       return () =>
         document.removeEventListener("keypress", keyPressEventHandler);
     }
-  }, [currentTab, activeMenu, isNxAvailable, nx]);
+  }, [
+    currentTab,
+    activeMenu,
+    goBack,
+    resetCurrentMenu,
+    resetAllMenus,
+    saveDefaults,
+    cycleNextTab,
+    cyclePrevTab,
+    isNxAvailable,
+    nx,
+  ]);
 
   return (
     <div className="app bg-gray-200">
