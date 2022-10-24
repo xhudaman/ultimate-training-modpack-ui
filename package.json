@@ -1,37 +1,47 @@
 {
-  "name": "src",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "webpack-dev-server --mode development --hot",
-    "build:dev": "webpack --mode development",
-    "build:prod": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "name": "ultimate-training-modpack-ui",
+  "author": "xhudaman",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "classnames": "^2.3.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "classnames": "^2.3.2",
     "react": "^18.2.0",
+    "react-app-polyfill": "^3.0.0",
     "react-dom": "^18.2.0",
-    "tailwind-merge": "^1.6.0"
+    "react-scripts": "5.0.1",
+    "tailwind-merge": "^1.6.0",
+    "web-vitals": "^2.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "@babel/core": "^7.18.10",
-    "@babel/preset-env": "^7.18.10",
-    "@babel/preset-react": "^7.18.6",
-    "autoprefixer": "^10.4.8",
-    "babel-loader": "^8.2.5",
-    "css-loader": "^6.7.1",
-    "html-webpack-plugin": "^5.5.0",
+    "autoprefixer": "^10.4.12",
     "postcss": "^8.4.16",
-    "postcss-loader": "^7.0.1",
-    "style-loader": "^3.3.1",
-    "tailwindcss": "^3.1.8",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.10.0"
+    "tailwindcss": "^3.1.8"
   }
 }

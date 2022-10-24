@@ -61,4 +61,6 @@ export const initializeNx = () => {
         break;
     }
   });
+
+  return nx;
 };

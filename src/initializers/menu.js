@@ -1,5 +1,45 @@
 import { getArrayOfNumbers } from "../lib/arrayOfNumbers";
 
+const devFallbackConfig = {
+  aerial_delay: 0,
+  air_dodge_dir: 0,
+  attack_angle: 0,
+  buff_state: 0,
+  character_item: 0,
+  clatter_strength: 0,
+  crouch: 0,
+  di_state: 0,
+  falling_aerials: 0,
+  fast_fall_delay: 0,
+  fast_fall: 0,
+  follow_up: 0,
+  frame_advantage: 0,
+  full_hop: 0,
+  hitbox_vis: 1,
+  input_delay: 0,
+  ledge_delay: 0,
+  ledge_state: 0,
+  mash_state: 0,
+  mash_triggers: 0,
+  miss_tech_state: 0,
+  oos_offset: 0,
+  pummel_delay: 0,
+  quick_menu: 0,
+  reaction_time: 0,
+  save_damage: 0,
+  save_state_autoload: 0,
+  save_state_enable: 0,
+  save_state_mirroring: 0,
+  sdi_state: 0,
+  sdi_strength: 0,
+  shield_state: 0,
+  shield_tilt: 0,
+  stage_hazards: 0,
+  tech_state: 0,
+  throw_delay: 0,
+  throw_state: 0,
+};
+
 const tabMap = {
   mash: [
     {
@@ -220,6 +260,82 @@ const tabMap = {
       isSingleOption: false,
     },
     {
+      name: "mash_triggers",
+      label: "Mash Triggers",
+      helpText: "Mash triggers: When the Mash Option will be performed",
+      options: [
+        {
+          label: "Hitstun",
+          value: 1,
+        },
+        {
+          label: "Shieldstun",
+          value: 2,
+        },
+        {
+          label: "Parry",
+          value: 4,
+        },
+        {
+          label: "Tumble",
+          value: 8,
+        },
+        {
+          label: "Landing",
+          value: 16,
+        },
+        {
+          label: "Ledge Trump",
+          value: 32,
+        },
+        {
+          label: "Footstool",
+          value: 64,
+        },
+        {
+          label: "Clatter",
+          value: 128,
+        },
+        {
+          label: "Ledge Option",
+          value: 256,
+        },
+        {
+          label: "Tech Option",
+          value: 512,
+        },
+        {
+          label: "Mistech Option",
+          value: 1024,
+        },
+        {
+          label: "Grounded",
+          value: 2048,
+        },
+        {
+          label: "Airborne",
+          value: 4096,
+        },
+        {
+          label: "Distance: Close",
+          value: 8192,
+        },
+        {
+          label: "Distance: Mid",
+          value: 16384,
+        },
+        {
+          label: "Distance: Far",
+          value: 32768,
+        },
+        {
+          label: "Always",
+          value: 65536,
+        },
+      ],
+      isSingleOption: false,
+    },
+    {
       name: "attack_angle",
       label: "Attack Angle",
       helpText:
@@ -362,17 +478,6 @@ const tabMap = {
         value: index === 0 ? 1 : 2 ** index,
       })),
       isSingleOption: false,
-    },
-    {
-      name: "mash_in_neutral",
-      label: "Mash In neutral",
-      helpText:
-        "Mash In Neutral: Should Mash options be performed repeatedly or only when the CPU is hit",
-      options: [
-        { label: "On", value: 1 },
-        { label: "Off", value: 0 },
-      ],
-      isSingleOption: true,
     },
   ],
   defensive: [
@@ -748,35 +853,6 @@ const tabMap = {
       isSingleOption: false,
     },
     {
-      name: "defensive_state",
-      label: "Escape Toggles",
-      helpText:
-        "Escape Options: Actions to take after a ledge option, tech option, or mistech option",
-      options: [
-        {
-          label: "Spotdodge",
-          value: 1,
-        },
-        {
-          label: "Roll Forwards",
-          value: 2,
-        },
-        {
-          label: "Roll Backwards",
-          value: 4,
-        },
-        {
-          label: "Jab",
-          value: 8,
-        },
-        {
-          label: "Shield",
-          value: 16,
-        },
-      ],
-      isSingleOption: false,
-    },
-    {
       name: "buff_state",
       label: "Buff Options",
       helpText:
@@ -894,6 +970,22 @@ const tabMap = {
         {
           label: "CPU 8th Var.",
           value: 32768,
+        },
+      ],
+      isSingleOption: true,
+    },
+    {
+      name: "crouch",
+      label: "Crouch",
+      helpText: "Crouch: Should the CPU crouch when on the ground",
+      options: [
+        {
+          label: "Off",
+          value: 0,
+        },
+        {
+          label: "On",
+          value: 1,
         },
       ],
       isSingleOption: true,
@@ -1049,19 +1141,7 @@ const tabMap = {
   ],
 };
 
-const getMenuObjectFromUrl = () => {
-  const queryParams = new URLSearchParams(window.location.search);
-
-  return Array.from(queryParams).reduce(
-    (accumulator, [key, value]) => ({
-      ...accumulator,
-      [key]: parseInt(value),
-    }),
-    {}
-  );
-};
-
-const getTabFromMenuObject = (menu, tabName) =>
+export const getTabFromMenuObject = (menu, tabName) =>
   tabMap[tabName].reduce((accumulator, menuItem) => {
     const mask = menu[menuItem.name];
     accumulator.push({ ...menuItem, mask });
@@ -1069,11 +1149,10 @@ const getTabFromMenuObject = (menu, tabName) =>
     return accumulator;
   }, []);
 
-const getMenu = () => {
-  const menu = getMenuObjectFromUrl();
-  const mash = getTabFromMenuObject(menu, "mash");
-  const defensive = getTabFromMenuObject(menu, "defensive");
-  const misc = getTabFromMenuObject(menu, "misc");
+const getMenuFromConfig = (config = devFallbackConfig) => {
+  const mash = getTabFromMenuObject(config, "mash");
+  const defensive = getTabFromMenuObject(config, "defensive");
+  const misc = getTabFromMenuObject(config, "misc");
 
   return {
     mash,
@@ -1082,4 +1161,16 @@ const getMenu = () => {
   };
 };
 
-export const loadMenu = () => getMenu();
+export const getConfigFromMenu = (menu) => {
+  const config = Object.keys(menu)
+    .map((key) => menu[key])
+    .flat()
+    .reduce(
+      (accumulator, { name, mask }) => ({ ...accumulator, [name]: mask }),
+      {}
+    );
+
+  return config;
+};
+
+export const loadMenu = (config) => getMenuFromConfig(config);

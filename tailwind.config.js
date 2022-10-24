@@ -5,4 +5,8 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  corePlugins: {
+    backgroundOpacity: false,
+    textOpacity: false,
+  },
 };

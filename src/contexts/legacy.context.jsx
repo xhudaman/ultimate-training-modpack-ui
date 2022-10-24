@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 
 const LegacyContext = React.createContext();
 
@@ -10,14 +10,12 @@ export const LegacyContextProvider = ({ children }) => {
   }, []);
 
   const updateMenuAndExit = (settings) => {
-    setMenu({...menu, settings});
-    window.location.href = 'http://localhost';
+    setMenu({ ...menu, settings });
+    window.location.href = "http://localhost";
   };
 
   return (
-    <LegacyContext.Provider value={menu}>
-        {children}
-    </LegacyContext.Provider>
+    <LegacyContext.Provider value={menu}>{children}</LegacyContext.Provider>
   );
 };
 

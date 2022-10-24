@@ -1,16 +1,20 @@
+import "react-app-polyfill/stable";
 import { createRoot } from "react-dom/client";
 import App from "./components/app";
 import "./styles/index.css";
 import "./styles/app.css";
-import { initializeNx } from "./initializers/nx";
 import { MenuContextProvider } from "./contexts/menu.context";
-
-// initializeNx();
+import { NxContextProvider } from "./contexts/nx.context";
+import ErrorBoundary from "./components/errorBoundary";
 
 const root = createRoot(document.getElementById("root"));
 
 root.render(
-  <MenuContextProvider>
-    <App />
-  </MenuContextProvider>
+  <ErrorBoundary>
+    <NxContextProvider>
+      <MenuContextProvider>
+        <App />
+      </MenuContextProvider>
+    </NxContextProvider>
+  </ErrorBoundary>
 );
