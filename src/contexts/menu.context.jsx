@@ -102,16 +102,21 @@ const MenuContextProvider = ({ children }) => {
 
   useEffect(() => {
     const handleMessage = (message) => {
-      const { menu: config, defaults_menu: defaultConfig } = JSON.parse(
-        message.data
-      );
-      // alert(`received message: ${JSON.stringify(message.data, 2)}`);
+      try {
+        const { menu: config, defaults_menu: defaultConfig } = JSON.parse(
+          message.data
+        );
+        // alert(`received message: ${JSON.stringify(message.data, 2)}`);
 
-      const updatedMenu = loadMenu(config);
-      const updatedDefaultMenu = loadMenu(defaultConfig);
+        const updatedMenu = loadMenu(config);
+        const updatedDefaultMenu = loadMenu(defaultConfig);
 
-      setMainMenu(updatedMenu);
-      setDefaultsMenu(updatedDefaultMenu);
+        setMainMenu(updatedMenu);
+        setDefaultsMenu(updatedDefaultMenu);
+      } catch (error) {
+        alert(`${error.message}\n${error.stack}`);
+        console.error(error);
+      }
     };
 
     if (isNxAvailable) {
