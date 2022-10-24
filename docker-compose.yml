@@ -13,3 +13,4 @@ services:
       - ${PWD}/:/src
     environment:
       PORT: 3000
+      REACT_APP_DEBUG_SERVER_URL: ws://localhost:3001

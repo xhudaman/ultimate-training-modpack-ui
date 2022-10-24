@@ -6,7 +6,7 @@ const useNxContext = () => {
   const { nx, isNxAvailable } = useContext(NxContext);
 
   if (!nx) {
-    console.log("Running in browser mocking nx...");
+    console.log("Running in browser mocking nx...", null, { nativeOnly: true });
   }
 
   return { nx, isNxAvailable };

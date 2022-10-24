@@ -103,18 +103,20 @@ const App = () => {
   const cyclePrevTab = () => cycleTab(currentTab, -1);
 
   const resetCurrentMenu = () => {
-    const updatedMenu = { ...menu };
-    const newActive = defaultsMenu[currentTab].find(
-      (item) => item.name === activeMenu.name
-    );
-    const newActiveIndex = updatedMenu[currentTab].findIndex(
-      (item) => item.name === newActive.name
-    );
+    if (activeMenu) {
+      const updatedMenu = { ...menu };
+      const newActive = defaultsMenu[currentTab].find(
+        (item) => item.name === activeMenu.name
+      );
+      const newActiveIndex = updatedMenu[currentTab].findIndex(
+        (item) => item.name === newActive.name
+      );
 
-    updatedMenu[currentTab][newActiveIndex] = newActive;
+      updatedMenu[currentTab][newActiveIndex] = newActive;
 
-    setActiveMenu(newActive);
-    setMenu(updatedMenu);
+      setActiveMenu(newActive);
+      setMenu(updatedMenu);
+    }
   };
   const resetAllMenus = () => setMenu(defaultsMenu);
   const saveDefaults = () => setDefaultsMenu(JSON.parse(JSON.stringify(menu)));
