@@ -45,7 +45,7 @@ class DevTools {
         }),
     };
 
-    if (enableConsoleOverrides) {
+    if (enableConsoleOverrides && this.client) {
       this.initConsoleOverrides();
     }
 
@@ -61,56 +61,61 @@ class DevTools {
   }
 
   getClient() {
-    const client = new WebSocket(process.env.REACT_APP_DEBUG_SERVER_URL);
+    try {
+      const client = new WebSocket(process.env.REACT_APP_DEBUG_SERVER_URL);
 
-    client.onopen = () => {
-      if (client.readyState === 1) {
-        if (typeof window.nx !== "undefined") {
-          alert(
-            `Connected to socket at ${process.env.REACT_APP_DEBUG_SERVER_URL}`
+      client.onopen = () => {
+        if (client.readyState === 1) {
+          if (typeof window.nx !== "undefined") {
+            alert(
+              `Connected to socket at ${process.env.REACT_APP_DEBUG_SERVER_URL}`
+            );
+            return;
+          }
+          console.log(
+            `Connected to socket at ${process.env.REACT_APP_DEBUG_SERVER_URL}`,
+            null,
+            {
+              nativeOnly: true,
+            }
           );
+
+          client.send(
+            JSON.stringify({
+              type: "init",
+              data: { relation: "client" },
+            })
+          );
+        }
+      };
+
+      client.onerror = (error) => {
+        if (typeof window.nx !== "undefined")
+          alert(`error: ${JSON.stringify(error)}`);
+        console.error(error);
+      };
+
+      client.onmessage = (event) => {
+        const parsedMessage = JSON.parse(event.data);
+        const { type, data } = parsedMessage;
+
+        if (type === "init") {
+          if (!this.client.id) {
+            this.client.id = data.id;
+          }
+        }
+        if (typeof window.nx !== "undefined") {
+          alert(`${type}: ${JSON.stringify(data)}`);
           return;
         }
-        console.log(
-          `Connected to socket at ${process.env.REACT_APP_DEBUG_SERVER_URL}`,
-          null,
-          {
-            nativeOnly: true,
-          }
-        );
+        console.log(type, data, { nativeOnly: true });
+      };
 
-        client.send(
-          JSON.stringify({
-            type: "init",
-            data: { relation: "client" },
-          })
-        );
-      }
-    };
-
-    client.onerror = (error) => {
-      if (typeof window.nx !== "undefined")
-        alert(`error: ${JSON.stringify(error)}`);
-      console.error(error);
-    };
-
-    client.onmessage = (event) => {
-      const parsedMessage = JSON.parse(event.data);
-      const { type, data } = parsedMessage;
-
-      if (type === "init") {
-        if (!this.client.id) {
-          this.client.id = data.id;
-        }
-      }
-      if (typeof window.nx !== "undefined") {
-        alert(`${type}: ${JSON.stringify(data)}`);
-        return;
-      }
-      console.log(type, data);
-    };
-
-    return client;
+      return client;
+    } catch (error) {
+      alert(error);
+      return;
+    }
   }
 
   sendMessage(type, object) {
@@ -135,7 +140,11 @@ class DevTools {
       },
     };
 
-    this.client.send(JSON.stringify(messageToSend));
+    try {
+      this.client.send(JSON.stringify(messageToSend));
+    } catch (error) {
+      alert(error);
+    }
   }
 
   initConsoleOverrides() {
@@ -148,47 +157,39 @@ class DevTools {
     } = console;
 
     console.log = (...args) => {
-      const [message, data, options = {}] = args;
+      const [message, data] = args;
 
-      if (!options.nativeOnly && _.isString(message) && isSerializable(data)) {
+      if (_.isString(message) && isSerializable(data)) {
         this.logger.log(message, data);
       }
-
-      _log(...args);
     };
 
     console.info = (...args) => {
-      const [message, data, options = {}] = args;
+      const [message, data] = args;
 
-      if (!options.nativeOnly && _.isString(message) && isSerializable(data)) {
+      if (_.isString(message) && isSerializable(data)) {
         this.logger.info(message, data);
       }
-
-      _info(...args);
     };
 
     console.debug = (...args) => {
-      const [message, data, options = {}] = args;
+      const [message, data] = args;
 
-      if (!options.nativeOnly && _.isString(message) && isSerializable(data)) {
+      if (_.isString(message) && isSerializable(data)) {
         this.logger.debug(message, data);
       }
-
-      _debug(...args);
     };
 
-    console.error = (error, options = {}) => {
-      if (!options.nativeOnly && error instanceof Error) {
+    console.error = (error) => {
+      if (error instanceof Error) {
         this.logger.error(error);
       }
-      _error(error);
     };
 
-    console.trace = (error, options = {}) => {
-      if (!options.nativeOnly && error instanceof Error) {
+    console.trace = (error) => {
+      if (error instanceof Error) {
         this.logger.trace(error);
       }
-      _trace(error);
     };
   }
 }
