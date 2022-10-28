@@ -66,20 +66,6 @@ class DevTools {
 
       client.onopen = () => {
         if (client.readyState === 1) {
-          if (typeof window.nx !== "undefined") {
-            alert(
-              `Connected to socket at ${process.env.REACT_APP_DEBUG_SERVER_URL}`
-            );
-            return;
-          }
-          console.log(
-            `Connected to socket at ${process.env.REACT_APP_DEBUG_SERVER_URL}`,
-            null,
-            {
-              nativeOnly: true,
-            }
-          );
-
           client.send(
             JSON.stringify({
               type: "init",
@@ -91,7 +77,7 @@ class DevTools {
 
       client.onerror = (error) => {
         if (typeof window.nx !== "undefined")
-          alert(`error: ${JSON.stringify(error)}`);
+          return alert(`error: ${JSON.stringify(error)}`);
         console.error(error);
       };
 
@@ -100,15 +86,13 @@ class DevTools {
         const { type, data } = parsedMessage;
 
         if (type === "init") {
-          if (!this.client.id) {
-            this.client.id = data.id;
-          }
+          this.client.id = data.id;
         }
+
         if (typeof window.nx !== "undefined") {
           alert(`${type}: ${JSON.stringify(data)}`);
           return;
         }
-        console.log(type, data, { nativeOnly: true });
       };
 
       return client;

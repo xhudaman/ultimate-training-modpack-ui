@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, Fragment } from "react";
 import Footer from "./footer";
 import Header from "./header";
 import MenuButton from "./inputs/menuButton";
-import { twClassNames } from "../lib/tailwindClassNames";
+import { twClassNames } from "../lib";
 import { useMenuContext, useNxContext } from "../contexts";
 import { getConfigFromMenu } from "../initializers/menu";
 import deepCopy from "../utils/deepCopy";
@@ -56,7 +56,9 @@ const App = () => {
       menu: config,
       defaults_menu: defaultConfig,
     });
+
     console.log("exiting", { config, defaultConfig, serializedConfig });
+
     if (isNxAvailable) {
       alert(
         `exiting: ${JSON.stringify(

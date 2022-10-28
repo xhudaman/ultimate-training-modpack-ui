@@ -1,4 +1,4 @@
-import { getArrayOfNumbers } from "../lib/arrayOfNumbers";
+import { getArrayOfNumbers } from "../lib";
 
 const devFallbackConfig = {
   aerial_delay: 0,
