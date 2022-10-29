@@ -66,7 +66,7 @@ class DevTools {
       const client = new WebSocket(process.env.REACT_APP_DEBUG_SERVER_URL);
 
       client.onopen = () => {
-        if (client.readyState === 1) {
+        if (client.readyState === WebSocket.OPEN) {
           client.send(
             JSON.stringify({
               type: "init",
@@ -77,7 +77,6 @@ class DevTools {
       };
 
       client.onerror = (error) => {
-        if (isNxAvailable) return alert(`error: ${JSON.stringify(error)}`);
         console.error(error);
       };
 
@@ -87,11 +86,6 @@ class DevTools {
 
         if (type === "init") {
           this.client.id = data.id;
-        }
-
-        if (isNxAvailable) {
-          alert(`${type}: ${JSON.stringify(data)}`);
-          return;
         }
       };
 
@@ -103,6 +97,7 @@ class DevTools {
   }
 
   sendMessage(type, object) {
+    if (this.client.readyState !== WebSocket.OPEN) return;
     const { message, data } = object;
 
     if (type === "error" || type === "trace") {
@@ -124,11 +119,7 @@ class DevTools {
       },
     };
 
-    try {
-      this.client.send(JSON.stringify(messageToSend));
-    } catch (error) {
-      alert(error);
-    }
+    this.client.send(JSON.stringify(messageToSend));
   }
 
   initConsoleOverrides() {
