@@ -12,6 +12,7 @@ const Header = () => {
           <img
             className="h-[44.16px] w-[44.16px]"
             src="assets/images/m_retnormal.svg"
+            alt="Go back"
           />
         </button>
       </div>

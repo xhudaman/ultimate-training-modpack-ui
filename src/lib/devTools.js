@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { isSerializable } from "../utils/serializable";
 
+const isNxAvailable = typeof window.nx !== "undefined";
 class DevTools {
   constructor(config) {
     const { enableInProduction, enableConsoleOverrides } = config || {};
@@ -76,8 +77,7 @@ class DevTools {
       };
 
       client.onerror = (error) => {
-        if (typeof window.nx !== "undefined")
-          return alert(`error: ${JSON.stringify(error)}`);
+        if (isNxAvailable) return alert(`error: ${JSON.stringify(error)}`);
         console.error(error);
       };
 
@@ -89,7 +89,7 @@ class DevTools {
           this.client.id = data.id;
         }
 
-        if (typeof window.nx !== "undefined") {
+        if (isNxAvailable) {
           alert(`${type}: ${JSON.stringify(data)}`);
           return;
         }
@@ -146,6 +146,10 @@ class DevTools {
       if (_.isString(message) && isSerializable(data)) {
         this.logger.log(message, data);
       }
+
+      if (!isNxAvailable) {
+        _log(message, data);
+      }
     };
 
     console.info = (...args) => {
@@ -153,6 +157,10 @@ class DevTools {
 
       if (_.isString(message) && isSerializable(data)) {
         this.logger.info(message, data);
+      }
+
+      if (!isNxAvailable) {
+        _info(message, data);
       }
     };
 
@@ -162,17 +170,27 @@ class DevTools {
       if (_.isString(message) && isSerializable(data)) {
         this.logger.debug(message, data);
       }
+
+      if (!isNxAvailable) {
+        _debug(message, data);
+      }
     };
 
     console.error = (error) => {
       if (error instanceof Error) {
         this.logger.error(error);
       }
+      if (!isNxAvailable) {
+        _error(error);
+      }
     };
 
     console.trace = (error) => {
       if (error instanceof Error) {
         this.logger.trace(error);
+      }
+      if (!isNxAvailable) {
+        _trace(error);
       }
     };
   }

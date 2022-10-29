@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, Fragment } from "react";
+import { useState, useMemo, useEffect, useCallback, Fragment } from "react";
 import Footer from "./footer";
 import Header from "./header";
 import MenuButton from "./inputs/menuButton";
@@ -22,27 +22,33 @@ const App = () => {
   const tabs = useMemo(() => menu && Object.keys(menu), [menu]);
   const { nx, isNxAvailable } = useNxContext();
 
-  const handleOpenTab = (tabName) => {
-    setActiveMenu();
-    setCurrentTab(tabName);
-  };
+  const handleOpenTab = useCallback(
+    (tabName) => {
+      setActiveMenu();
+      setCurrentTab(tabName);
+    },
+    [setActiveMenu, setCurrentTab]
+  );
 
-  const cycleTab = (currentTab, direction) => {
-    const index = tabs.indexOf(currentTab);
-    console.log(`cycling tab in the ${direction} direction`, index);
-    if (index === -1) return console.log("tab not found");
-    if (index === 0 && direction === -1) {
-      return handleOpenTab(tabs[tabs.length - 1]);
-    }
+  const cycleTab = useCallback(
+    (currentTab, direction) => {
+      const index = tabs.indexOf(currentTab);
+      console.log(`cycling tab in the ${direction} direction`, index);
+      if (index === -1) return console.log("tab not found");
+      if (index === 0 && direction === -1) {
+        return handleOpenTab(tabs[tabs.length - 1]);
+      }
 
-    if (index === tabs.length - 1 && direction === 1) {
-      return handleOpenTab(tabs[0]);
-    }
+      if (index === tabs.length - 1 && direction === 1) {
+        return handleOpenTab(tabs[0]);
+      }
 
-    handleOpenTab(tabs[index + direction]);
-  };
+      handleOpenTab(tabs[index + direction]);
+    },
+    [handleOpenTab, tabs]
+  );
 
-  const goBack = () => {
+  const goBack = useCallback(() => {
     if (activeMenu) {
       return handleOpenTab(currentTab);
     }
@@ -68,7 +74,15 @@ const App = () => {
       );
       nx.sendMessage(serializedConfig);
     }
-  };
+  }, [
+    activeMenu,
+    menu,
+    defaultsMenu,
+    isNxAvailable,
+    nx,
+    handleOpenTab,
+    currentTab,
+  ]);
 
   // True if value is in mask or
   // Both the mask and current value are 0 (single option is off)
@@ -102,10 +116,16 @@ const App = () => {
     setMenu(updatedMenu);
   };
 
-  const cycleNextTab = () => cycleTab(currentTab, 1);
-  const cyclePrevTab = () => cycleTab(currentTab, -1);
+  const cycleNextTab = useCallback(
+    () => cycleTab(currentTab, 1),
+    [currentTab, cycleTab]
+  );
+  const cyclePrevTab = useCallback(
+    () => cycleTab(currentTab, -1),
+    [currentTab, cycleTab]
+  );
 
-  const resetCurrentMenu = () => {
+  const resetCurrentMenu = useCallback(() => {
     if (activeMenu) {
       const updatedMenu = { ...menu };
       const newActive = deepCopy(
@@ -120,9 +140,15 @@ const App = () => {
       setActiveMenu(newActive);
       setMenu(updatedMenu);
     }
-  };
-  const resetAllMenus = () => setMenu(deepCopy(defaultsMenu));
-  const saveDefaults = () => setDefaultsMenu(deepCopy(menu));
+  }, [activeMenu, menu, currentTab, defaultsMenu, setMenu]);
+  const resetAllMenus = useCallback(
+    () => setMenu(deepCopy(defaultsMenu)),
+    [defaultsMenu, setMenu]
+  );
+  const saveDefaults = useCallback(
+    () => setDefaultsMenu(deepCopy(menu)),
+    [menu, setDefaultsMenu]
+  );
 
   useEffect(() => {
     if (isNxAvailable) {
@@ -169,14 +195,12 @@ const App = () => {
         document.removeEventListener("keypress", keyPressEventHandler);
     }
   }, [
-    currentTab,
-    activeMenu,
-    goBack,
-    resetCurrentMenu,
-    resetAllMenus,
-    saveDefaults,
     cycleNextTab,
     cyclePrevTab,
+    goBack,
+    resetAllMenus,
+    resetCurrentMenu,
+    saveDefaults,
     isNxAvailable,
     nx,
   ]);
