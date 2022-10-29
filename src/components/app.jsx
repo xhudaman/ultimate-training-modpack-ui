@@ -141,10 +141,16 @@ const App = () => {
       setMenu(updatedMenu);
     }
   }, [activeMenu, menu, currentTab, defaultsMenu, setMenu]);
-  const resetAllMenus = useCallback(
-    () => setMenu(deepCopy(defaultsMenu)),
-    [defaultsMenu, setMenu]
-  );
+  const resetAllMenus = useCallback(() => {
+    const updatedMenu = deepCopy(defaultsMenu);
+
+    setMenu(updatedMenu);
+    if (activeMenu) {
+      setActiveMenu(
+        updatedMenu[currentTab].find((menu) => menu.name === activeMenu.name)
+      );
+    }
+  }, [defaultsMenu, setMenu, currentTab, activeMenu, setActiveMenu]);
   const saveDefaults = useCallback(
     () => setDefaultsMenu(deepCopy(menu)),
     [menu, setDefaultsMenu]
