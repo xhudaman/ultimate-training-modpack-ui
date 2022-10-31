@@ -248,36 +248,41 @@ const App = () => {
             </div>
           )}
           {menu && (
-            <div
-              className={twClassNames(
-                "h-[554px] flex flex-wrap justify-center items-center",
-                activeMenu && "hidden"
-              )}
-            >
-              {menu[currentTab].map(({ name, label, helpText }) => (
-                <MenuButton
-                  key={name}
-                  classNames="basis-[23%] mx-2 p-1"
-                  handleClick={() => {
-                    setActiveMenu(
-                      menu[currentTab].find((item) => item.name === name)
-                    );
-                  }}
-                  handleFocus={() => setHelpText(helpText)}
-                  handleMouseEnter={() => setHelpText(helpText)}
-                  autofocus
+            <Fragment>
+              {tabs.map((tabName) => (
+                <div
+                  key={tabName}
+                  className={twClassNames(
+                    "h-[554px] flex flex-wrap justify-center items-center",
+                    (currentTab !== tabName || activeMenu) && "hidden"
+                  )}
                 >
-                  <div className="flex justify-start items-center w-full h-full">
-                    <img
-                      className="w-1/4 h-full"
-                      src={`assets/images/${name}.svg`}
-                      alt="placeholder"
-                    />
-                    <span className="mx-auto">{label}</span>
-                  </div>
-                </MenuButton>
+                  {menu[tabName].map(({ name, label, helpText }) => (
+                    <MenuButton
+                      key={name}
+                      classNames="basis-[23%] mx-2 p-1"
+                      handleClick={() => {
+                        setActiveMenu(
+                          menu[tabName].find((item) => item.name === name)
+                        );
+                      }}
+                      handleFocus={() => setHelpText(helpText)}
+                      handleMouseEnter={() => setHelpText(helpText)}
+                      autofocus
+                    >
+                      <div className="flex justify-start items-center w-full h-full">
+                        <img
+                          className="w-1/4 h-full"
+                          src={`assets/images/${name}.svg`}
+                          alt="placeholder"
+                        />
+                        <span className="mx-auto">{label}</span>
+                      </div>
+                    </MenuButton>
+                  ))}
+                </div>
               ))}
-            </div>
+            </Fragment>
           )}
           {activeMenu && (
             <div className="h-[594px] bg-black/60 flex flex-wrap justify-center items-center">
