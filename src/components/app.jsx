@@ -268,7 +268,6 @@ const App = () => {
                       }}
                       handleFocus={() => setHelpText(helpText)}
                       handleMouseEnter={() => setHelpText(helpText)}
-                      autofocus
                     >
                       <div className="flex justify-start items-center w-full h-full">
                         <img
