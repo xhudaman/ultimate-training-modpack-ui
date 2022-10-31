@@ -106,7 +106,6 @@ const MenuContextProvider = ({ children }) => {
         const { menu: config, defaults_menu: defaultConfig } = JSON.parse(
           message.data
         );
-        // alert(`received message: ${JSON.stringify(message.data, 2)}`);
 
         const updatedMenu = loadMenu(config);
         const updatedDefaultMenu = loadMenu(defaultConfig);
@@ -114,7 +113,6 @@ const MenuContextProvider = ({ children }) => {
         setMainMenu(updatedMenu);
         setDefaultsMenu(updatedDefaultMenu);
       } catch (error) {
-        alert(`${error.message}\n${error.stack}`);
         console.error(error);
       }
     };
@@ -126,7 +124,6 @@ const MenuContextProvider = ({ children }) => {
       return () => nx.removeEventListener("message", handleMessage);
     }
 
-    alert("Setting Timeout for loading menu");
     setTimeout(() => {
       setMainMenu(loadMenu(WEB_DEFAULT_MENUS.menu));
       setDefaultsMenu(loadMenu(WEB_DEFAULT_MENUS.defaults_menu));

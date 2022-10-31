@@ -1,4 +1,5 @@
 import "react-app-polyfill/stable";
+import "intersection-observer";
 import { createRoot } from "react-dom/client";
 import App from "./components/app";
 import "./styles/index.css";

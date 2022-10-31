@@ -6,6 +6,7 @@ import { twClassNames } from "../lib";
 import { useMenuContext, useNxContext } from "../contexts";
 import { getConfigFromMenu } from "../initializers/menu";
 import deepCopy from "../utils/deepCopy";
+import { Dialog, Transition } from "@headlessui/react";
 
 const App = () => {
   const { menus, isMenuLoading } = useMenuContext();
@@ -18,6 +19,7 @@ const App = () => {
   const [currentTab, setCurrentTab] = useState("mash");
   const [activeMenu, setActiveMenu] = useState(false);
   const [helpText, setHelpText] = useState();
+  const [showHelpMenu, setShowHelpMenu] = useState(false);
 
   const tabs = useMemo(() => menu && Object.keys(menu), [menu]);
   const { nx, isNxAvailable } = useNxContext();
@@ -49,6 +51,8 @@ const App = () => {
   );
 
   const goBack = useCallback(() => {
+    if (isMenuLoading) return;
+
     if (activeMenu) {
       return handleOpenTab(currentTab);
     }
@@ -66,15 +70,10 @@ const App = () => {
     console.log("exiting", { config, defaultConfig, serializedConfig });
 
     if (isNxAvailable) {
-      alert(
-        `exiting: ${JSON.stringify(
-          { config, defaultConfig, serializedConfig },
-          2
-        )}`
-      );
       nx.sendMessage(serializedConfig);
     }
   }, [
+    isMenuLoading,
     activeMenu,
     menu,
     defaultsMenu,
@@ -156,10 +155,16 @@ const App = () => {
     [menu, setDefaultsMenu]
   );
 
+  const toggleHelpMenu = useCallback(
+    () => setShowHelpMenu(!showHelpMenu),
+    [showHelpMenu, setShowHelpMenu]
+  );
+
   useEffect(() => {
     if (isNxAvailable) {
       nx.footer.setAssign("B", "", goBack, { se: "" });
       nx.footer.setAssign("X", "", resetCurrentMenu, { se: "" });
+      nx.footer.setAssign("Y", "", toggleHelpMenu, { se: "" });
       nx.footer.setAssign("L", "", resetAllMenus, { se: "" });
       nx.footer.setAssign("R", "", saveDefaults, { se: "" });
       nx.footer.setAssign("ZR", "", cycleNextTab, { se: "" });
@@ -182,6 +187,9 @@ const App = () => {
           case "x":
             resetCurrentMenu();
             break;
+          case "y":
+            toggleHelpMenu();
+            break;
           case "l":
             console.log("l: Resetting all menus...");
             resetAllMenus();
@@ -201,6 +209,7 @@ const App = () => {
         document.removeEventListener("keypress", keyPressEventHandler);
     }
   }, [
+    toggleHelpMenu,
     cycleNextTab,
     cyclePrevTab,
     goBack,
@@ -210,6 +219,8 @@ const App = () => {
     isNxAvailable,
     nx,
   ]);
+
+  const closeModal = () => toggleHelpMenu();
 
   return (
     <div className="app bg-gray-200">
@@ -253,6 +264,8 @@ const App = () => {
                     );
                   }}
                   handleFocus={() => setHelpText(helpText)}
+                  handleMouseEnter={() => setHelpText(helpText)}
+                  autofocus
                 >
                   <div className="flex justify-start items-center w-full h-full">
                     <img
@@ -289,6 +302,79 @@ const App = () => {
               ))}
             </div>
           )}
+
+          <Transition show={showHelpMenu} as={Fragment}>
+            <Dialog
+              as="div"
+              className="relative z-10"
+              open={showHelpMenu}
+              onClose={closeModal}
+            >
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-80"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-80"
+                leaveTo="opacity-0"
+              >
+                <div className="fixed inset-0 bg-black" />
+              </Transition.Child>
+
+              <div className="fixed inset-0 overflow-y-auto">
+                <div className="flex min-h-full items-center justify-center p-4 text-center">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                  >
+                    <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-lg bg-gray-200 p-6 text-left align-middle shadow-xl transition-all">
+                      <Dialog.Title
+                        as="h3"
+                        className="flex text-2xl font-medium leading-6 text-gray-900"
+                      >
+                        <span>Training Modpack Help</span>
+                        <span className="text-base ml-auto">
+                          &#xE0E3; Close Help Menu
+                        </span>
+                      </Dialog.Title>
+                      <div className="flex flex-col h-full mt-4 text-gray-800">
+                        <span className="inline-flex text-lg items-center">
+                          <span className="text-xl">&#xE0E6;</span>
+                          <span className="ml-2">Previous tab</span>
+                        </span>
+                        <span className="inline-flex text-lg items-center">
+                          <span className="text-xl">&#xE0E7;</span>
+                          <span className="ml-2">Next tab</span>
+                        </span>
+                        <span className="inline-flex text-lg items-center">
+                          <span className="text-xl">&#xE0E2;</span>
+                          <span className="ml-2">
+                            Reset current menu (when a menu is open)
+                          </span>
+                        </span>
+                        <span className="inline-flex text-lg items-center">
+                          <span className="text-xl">&#xE0E4;</span>
+                          <span className="ml-2">Reset all menus</span>
+                        </span>
+                        <span className="inline-flex text-lg items-center">
+                          <span className="text-xl">&#xE0E5;</span>
+                          <span className="ml-2">
+                            Save current options as defaults
+                          </span>
+                        </span>
+                      </div>
+                    </Dialog.Panel>
+                  </Transition.Child>
+                </div>
+              </div>
+            </Dialog>
+          </Transition>
         </Fragment>
       )}
 

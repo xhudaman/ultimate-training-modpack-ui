@@ -1,11 +1,13 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@headlessui/react': ^1.7.3
   '@testing-library/jest-dom': ^5.14.1
   '@testing-library/react': ^13.0.0
   '@testing-library/user-event': ^13.2.1
   autoprefixer: ^10.4.12
   classnames: ^2.3.2
+  intersection-observer: ^0.12.2
   lodash: ^4.17.21
   postcss: ^8.4.16
   react: ^18.2.0
@@ -17,10 +19,12 @@ specifiers:
   web-vitals: ^2.1.0
 
 dependencies:
+  '@headlessui/react': 1.7.3_biqbaboplfbrettd7655fr4n2y
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@testing-library/user-event': 13.5.0
   classnames: 2.3.2
+  intersection-observer: 0.12.2
   lodash: 4.17.21
   react: 18.2.0
   react-app-polyfill: 3.0.0
@@ -1600,6 +1604,17 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@headlessui/react/1.7.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-LGp06SrGv7BMaIQlTs8s2G06moqkI0cb0b8stgq7KZ3xcHdH3qMP+cRyV7qe5x4XEW/IGY48BW4fLesD6NQLng==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.10.5:
@@ -5477,6 +5492,10 @@ packages:
       get-intrinsic: 1.1.3
       has: 1.0.3
       side-channel: 1.0.4
+    dev: false
+
+  /intersection-observer/0.12.2:
+    resolution: {integrity: sha512-7m1vEcPCxXYI8HqnL8CKI6siDyD+eIWSwgB3DZA+ZTogxk9I4CDnj4wilt9x/+/QbHI4YG5YZNmC6458/e9Ktg==}
     dev: false
 
   /ipaddr.js/1.9.1:
