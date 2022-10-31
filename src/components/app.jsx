@@ -271,7 +271,7 @@ const App = () => {
                     >
                       <div className="flex justify-start items-center w-full h-full">
                         <img
-                          className="w-1/4 h-full"
+                          className="w-1/4 h-full min-h-[63.59px]"
                           src={`assets/images/${name}.svg`}
                           alt="placeholder"
                         />
