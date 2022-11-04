@@ -9,6 +9,10 @@ module.exports = {
   plugins: [
     plugin(function ({ addVariant }) {
       addVariant("hocus", ["&:hover", "&:focus"]);
+      addVariant("group-hocus", [
+        ":merge(.group):focus &",
+        ":merge(.group):hover &",
+      ]);
     }),
   ],
   corePlugins: {

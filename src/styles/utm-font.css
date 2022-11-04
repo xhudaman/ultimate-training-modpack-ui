@@ -1,0 +1,175 @@
+@font-face {
+  font-family: "ultimate-training-modpack";
+  src: url("fonts/ultimate-training-modpack.ttf?yq515t") format("truetype"),
+    url("fonts/ultimate-training-modpack.woff?yq515t") format("woff"),
+    url("fonts/ultimate-training-modpack.svg?yq515t#ultimate-training-modpack")
+      format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="utm-"],
+[class*=" utm-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "ultimate-training-modpack" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.utm-aerial-delay:before {
+  content: "\e900";
+}
+.utm-air-dodge-dir:before {
+  content: "\e901";
+}
+.utm-attack-angle:before {
+  content: "\e902";
+}
+.utm-buff-state:before {
+  content: "\e903";
+}
+.utm-character-item:before {
+  content: "\e904";
+}
+.utm-clatter-strength:before {
+  content: "\e905";
+}
+.utm-crouch:before {
+  content: "\e906";
+}
+.utm-defensive-state:before {
+  content: "\e907";
+}
+.utm-di-state:before {
+  content: "\e908";
+}
+.utm-falling-aerials:before {
+  content: "\e909";
+}
+.utm-fast-fall:before {
+  content: "\e90a";
+}
+.utm-fast-fall-delay:before {
+  content: "\e90b";
+}
+.utm-follow-up:before {
+  content: "\e90c";
+  opacity: 0.4;
+}
+.utm-follow-up:after {
+  content: "\e90d";
+  margin-left: -1em;
+}
+.utm-frame-advantage:before {
+  content: "\e90e";
+}
+.utm-full-hop:before {
+  content: "\e90f";
+}
+.utm-hitbox-vis:before {
+  content: "\e910";
+}
+.utm-hitbox-vis:after {
+  content: "\e911";
+  margin-left: -1em;
+  opacity: 0.36;
+}
+.utm-input-delay:before {
+  content: "\e912";
+}
+.utm-ledge-delay:before {
+  content: "\e913";
+}
+.utm-ledge-state:before {
+  content: "\e914";
+}
+.utm-mash-in-neutral:before {
+  content: "\e915";
+}
+.utm-mash-state:before {
+  content: "\e916";
+}
+.utm-mash-triggers:before {
+  content: "\e917";
+}
+.utm-miss-tech-state:before {
+  content: "\e918";
+}
+.utm-oos-offset:before {
+  content: "\e919";
+  opacity: 0.7533;
+}
+.utm-oos-offset:after {
+  content: "\e91a";
+  margin-left: -1em;
+  opacity: 0.4;
+}
+.utm-pummel-delay:before {
+  content: "\e91b";
+}
+.utm-quick-menu:before {
+  content: "\e91c";
+}
+.utm-reaction-time:before {
+  content: "\e91d";
+}
+.utm-return:before {
+  content: "\e91e";
+}
+.utm-save-damage:before {
+  content: "\e91f";
+}
+.utm-save-state-autoload:before {
+  content: "\e920";
+}
+.utm-save-state-enable:before {
+  content: "\e921";
+}
+.utm-save-state-mirroring:before {
+  content: "\e922";
+}
+.utm-sdi-state:before {
+  content: "\e923";
+}
+.utm-sdi-strength:before {
+  content: "\e924";
+}
+.utm-shield-state:before {
+  content: "\e925";
+  opacity: 0.6501;
+}
+.utm-shield-state:after {
+  content: "\e926";
+  margin-left: -1em;
+  opacity: 0.4;
+}
+.utm-shield-tilt:before {
+  content: "\e927";
+  opacity: 0.65;
+}
+.utm-shield-tilt:after {
+  content: "\e928";
+  margin-left: -1em;
+  opacity: 0.4;
+}
+.utm-stage-hazards:before {
+  content: "\e929";
+}
+.utm-tech-state:before {
+  content: "\e92a";
+}
+.utm-throw-delay:before {
+  content: "\e92b";
+}
+.utm-throw-state:before {
+  content: "\e92c";
+}

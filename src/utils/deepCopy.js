@@ -1,3 +1,1 @@
-const deepCopy = (object) => JSON.parse(JSON.stringify(object));
-
-export default deepCopy;
+export const deepCopy = (object) => JSON.parse(JSON.stringify(object));

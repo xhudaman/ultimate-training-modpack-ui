@@ -5,7 +5,7 @@ import MenuButton from "./inputs/menuButton";
 import { twClassNames } from "../lib";
 import { useMenuContext, useNxContext } from "../contexts";
 import { getConfigFromMenu } from "../initializers/menu";
-import deepCopy from "../utils/deepCopy";
+import { deepCopy, getIconClassNameFromMenuName } from "../utils";
 import { Dialog, Transition } from "@headlessui/react";
 
 const App = () => {
@@ -223,7 +223,7 @@ const App = () => {
   const closeModal = () => toggleHelpMenu();
 
   return (
-    <div className="app bg-gray-200">
+    <div className="app">
       <Header />
       {isMenuLoading ? (
         <div>Test</div>
@@ -260,7 +260,7 @@ const App = () => {
                   {menu[tabName].map(({ name, label, helpText }) => (
                     <MenuButton
                       key={name}
-                      classNames="basis-[23%] mx-2 p-1"
+                      classNames={`basis-[23%] mx-2 p-1 group hocus:text-orange-400`}
                       handleClick={() => {
                         setActiveMenu(
                           menu[tabName].find((item) => item.name === name)
@@ -270,12 +270,15 @@ const App = () => {
                       handleMouseEnter={() => setHelpText(helpText)}
                     >
                       <div className="flex justify-start items-center w-full h-full">
-                        <img
-                          className="w-1/4 h-full min-h-[63.59px]"
-                          src={`assets/images/${name}.svg`}
-                          alt="placeholder"
-                        />
-                        <span className="mx-auto">{label}</span>
+                        <span className="flex w-1/4 h-full min-h-[63.59px] items-center">
+                          <span
+                            className={`${getIconClassNameFromMenuName(
+                              name
+                            )} w-full h-full text-5xl`}
+                          />
+                        </span>
+
+                        <span className="mx-auto text-black">{label}</span>
                       </div>
                     </MenuButton>
                   ))}
