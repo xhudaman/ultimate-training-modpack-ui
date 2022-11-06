@@ -7,15 +7,14 @@ import "./styles/utm-font.css";
 import "./styles/app.css";
 import { MenuContextProvider } from "./contexts/menu.context";
 import { NxContextProvider } from "./contexts/nx.context";
+import DevTools from "./components/devTools";
 import ErrorBoundary from "./components/errorBoundary";
-import DevTools from "./lib/devTools";
 
 const root = createRoot(document.getElementById("root"));
 
-DevTools({ enableConsoleOverrides: true, enableInProduction: true });
-
 root.render(
   <ErrorBoundary>
+    <DevTools />
     <NxContextProvider>
       <MenuContextProvider>
         <App />

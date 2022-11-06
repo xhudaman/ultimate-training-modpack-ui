@@ -291,7 +291,7 @@ const App = () => {
               {activeMenu.options.map(({ label, value }) => (
                 <MenuButton
                   key={label}
-                  classNames="basis-[20%] h-[50px] mx-[1%] py-0 px-2 border-x-[0.75rem] border-y-[0.25rem] bg-gray-200"
+                  classNames="basis-[20%] h-[50px] mx-[1%] py-0 px-2 border-x-[0.75rem] border-y-[0.25rem] bg-gray-200 hocus:text-orange-400"
                   handleClick={() => handleClickOption(value)}
                 >
                   <div className="flex justify-center items-center w-full h-full">
@@ -303,7 +303,7 @@ const App = () => {
                       src="assets/images/check.svg"
                       alt="checked"
                     />
-                    <span className="mx-auto">{label}</span>
+                    <span className="mx-auto text-black">{label}</span>
                   </div>
                 </MenuButton>
               ))}

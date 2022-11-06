@@ -122,6 +122,10 @@ class DevTools {
     this.client.send(JSON.stringify(messageToSend));
   }
 
+  disconnect() {
+    this.sendMessage("disconnect", {});
+  }
+
   initConsoleOverrides() {
     const {
       log: _log,
