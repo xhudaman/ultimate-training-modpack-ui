@@ -5,6 +5,7 @@ specifiers:
   '@testing-library/jest-dom': ^5.14.1
   '@testing-library/react': ^13.0.0
   '@testing-library/user-event': ^13.2.1
+  '@xhudaman/ws-console': ^0.1.0
   autoprefixer: ^10.4.12
   classnames: ^2.3.2
   intersection-observer: ^0.12.2
@@ -23,6 +24,7 @@ dependencies:
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@testing-library/user-event': 13.5.0
+  '@xhudaman/ws-console': 0.1.0
   classnames: 2.3.2
   intersection-observer: 0.12.2
   lodash: 4.17.21
@@ -2785,6 +2787,12 @@ packages:
     dependencies:
       '@webassemblyjs/ast': 1.11.1
       '@xtuc/long': 4.2.2
+    dev: false
+
+  /@xhudaman/ws-console/0.1.0:
+    resolution: {integrity: sha512-2CFF+gpAKmqZaVarmGf1lDVD2jtU3NthuFWaYuf6K234CozfnHn4Y5WK+p3r+rdW/Atxq6mOBoJskuZB9eovCQ==}
+    dependencies:
+      lodash: 4.17.21
     dev: false
 
   /@xtuc/ieee754/1.2.0:

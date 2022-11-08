@@ -1,11 +1,12 @@
 import { Fragment, useEffect } from "react";
-import _DevTools from "../lib/devTools";
+import WSConsole from "@xhudaman/ws-console";
 
 const DevTools = () => {
   useEffect(() => {
-    const devTools = _DevTools({
+    const devTools = WSConsole({
       enableConsoleOverrides: true,
       enableInProduction: true,
+      debugServerUrl: process.env.REACT_APP_DEBUG_SERVER_URL,
     });
 
     return devTools.disconnect();

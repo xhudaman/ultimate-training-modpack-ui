@@ -124,10 +124,8 @@ const MenuContextProvider = ({ children }) => {
       return () => nx.removeEventListener("message", handleMessage);
     }
 
-    setTimeout(() => {
-      setMainMenu(loadMenu(WEB_DEFAULT_MENUS.menu));
-      setDefaultsMenu(loadMenu(WEB_DEFAULT_MENUS.defaults_menu));
-    }, 1750);
+    setMainMenu(loadMenu(WEB_DEFAULT_MENUS.menu));
+    setDefaultsMenu(loadMenu(WEB_DEFAULT_MENUS.defaults_menu));
   }, [nx, isNxAvailable]);
 
   const value = {
@@ -139,7 +137,7 @@ const MenuContextProvider = ({ children }) => {
     },
 
     isMenuLoading: !mainMenu,
-  }; // [menu, setMenu, defaultsMenu, setDefaultsMenu];
+  };
 
   return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>;
 };

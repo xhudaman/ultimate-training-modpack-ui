@@ -1,5 +1,6 @@
 import "react-app-polyfill/stable";
 import "intersection-observer";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./components/app";
 import "./styles/index.css";
@@ -13,12 +14,14 @@ import ErrorBoundary from "./components/errorBoundary";
 const root = createRoot(document.getElementById("root"));
 
 root.render(
-  <ErrorBoundary>
-    <DevTools />
-    <NxContextProvider>
-      <MenuContextProvider>
-        <App />
-      </MenuContextProvider>
-    </NxContextProvider>
-  </ErrorBoundary>
+  <React.StrictMode>
+    <ErrorBoundary>
+      <DevTools />
+      <NxContextProvider>
+        <MenuContextProvider>
+          <App />
+        </MenuContextProvider>
+      </NxContextProvider>
+    </ErrorBoundary>
+  </React.StrictMode>
 );
