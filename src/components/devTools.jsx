@@ -7,6 +7,7 @@ const DevTools = () => {
       enableConsoleOverrides: true,
       enableInProduction: true,
       debugServerUrl: process.env.REACT_APP_DEBUG_SERVER_URL,
+      disablePassthroughToNativeConsole: true,
     });
 
     return devTools.disconnect();

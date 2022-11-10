@@ -11,7 +11,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
-    "@xhudaman/ws-console": "^0.1.0",
+    "@xhudaman/ws-console": "^0.2.0",
     "classnames": "^2.3.2",
     "intersection-observer": "^0.12.2",
     "lodash": "^4.17.21",

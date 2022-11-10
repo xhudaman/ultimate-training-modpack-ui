@@ -7,6 +7,7 @@ import { useMenuContext, useNxContext } from "../contexts";
 import { getConfigFromMenu } from "../initializers/menu";
 import { deepCopy, getIconClassNameFromMenuName } from "../utils";
 import { Dialog, Transition } from "@headlessui/react";
+// import Range from "./inputs/slider";
 
 const App = () => {
   const { menus, isMenuLoading } = useMenuContext();
@@ -20,9 +21,25 @@ const App = () => {
   const [activeMenu, setActiveMenu] = useState(false);
   const [helpText, setHelpText] = useState();
   const [showHelpMenu, setShowHelpMenu] = useState(false);
+  const [activeMenuName, setActiveMenuName] = useState();
 
   const tabs = useMemo(() => menu && Object.keys(menu), [menu]);
   const { nx, isNxAvailable } = useNxContext();
+
+  const autoFocusRef = useCallback(
+    (node) => {
+      if (!isNxAvailable) return;
+
+      if (node !== null && !activeMenu && !activeMenuName) {
+        node.focus();
+        return setActiveMenuName();
+      }
+      if (node !== null && (currentTab || activeMenu)) {
+        node.focus();
+      }
+    },
+    [isNxAvailable, currentTab, activeMenu, activeMenuName]
+  );
 
   const handleOpenTab = useCallback(
     (tabName) => {
@@ -70,7 +87,11 @@ const App = () => {
     console.log("exiting", { config, defaultConfig, serializedConfig });
 
     if (isNxAvailable) {
-      nx.sendMessage(serializedConfig);
+      try {
+        nx.sendMessage(serializedConfig);
+      } catch (error) {
+        console.error(error);
+      }
     }
   }, [
     isMenuLoading,
@@ -257,7 +278,7 @@ const App = () => {
                     (currentTab !== tabName || activeMenu) && "hidden"
                   )}
                 >
-                  {menu[tabName].map(({ name, label, helpText }) => (
+                  {menu[tabName].map(({ name, label, helpText }, index) => (
                     <MenuButton
                       key={name}
                       classNames={`basis-[23%] mx-2 p-1 group hocus:text-orange-400`}
@@ -265,9 +286,17 @@ const App = () => {
                         setActiveMenu(
                           menu[tabName].find((item) => item.name === name)
                         );
+                        setActiveMenuName(name);
                       }}
                       handleFocus={() => setHelpText(helpText)}
                       handleMouseEnter={() => setHelpText(helpText)}
+                      ref={
+                        activeMenuName === name
+                          ? autoFocusRef
+                          : index === 0
+                          ? autoFocusRef
+                          : undefined
+                      }
                     >
                       <div className="flex justify-start items-center w-full h-full">
                         <span className="flex w-1/4 h-full min-h-[63.59px] items-center">
@@ -288,11 +317,12 @@ const App = () => {
           )}
           {activeMenu && (
             <div className="h-[594px] bg-black/60 flex flex-wrap justify-center items-center">
-              {activeMenu.options.map(({ label, value }) => (
+              {activeMenu.options.map(({ label, value }, index) => (
                 <MenuButton
                   key={label}
                   classNames="basis-[20%] h-[50px] mx-[1%] py-0 px-2 border-x-[0.75rem] border-y-[0.25rem] bg-gray-200 hocus:text-orange-400"
                   handleClick={() => handleClickOption(value)}
+                  ref={index === 0 ? autoFocusRef : undefined}
                 >
                   <div className="flex justify-center items-center w-full h-full">
                     <img
