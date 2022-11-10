@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: production
-    outputs:
-      release-archive: ${{ steps.}}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
