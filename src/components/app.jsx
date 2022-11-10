@@ -176,16 +176,16 @@ const App = () => {
     [menu, setDefaultsMenu]
   );
 
-  const toggleHelpMenu = useCallback(
-    () => setShowHelpMenu(!showHelpMenu),
-    [showHelpMenu, setShowHelpMenu]
-  );
-
   useEffect(() => {
     if (isNxAvailable) {
       nx.footer.setAssign("B", "", goBack, { se: "" });
       nx.footer.setAssign("X", "", resetCurrentMenu, { se: "" });
-      nx.footer.setAssign("Y", "", toggleHelpMenu, { se: "" });
+      nx.footer.setAssign(
+        "Y",
+        "",
+        () => setShowHelpMenu((showHelpMenu) => !showHelpMenu),
+        { se: "" }
+      );
       nx.footer.setAssign("L", "", resetAllMenus, { se: "" });
       nx.footer.setAssign("R", "", saveDefaults, { se: "" });
       nx.footer.setAssign("ZR", "", cycleNextTab, { se: "" });
@@ -209,7 +209,7 @@ const App = () => {
             resetCurrentMenu();
             break;
           case "y":
-            toggleHelpMenu();
+            setShowHelpMenu((showHelpMenu) => !showHelpMenu);
             break;
           case "l":
             console.log("l: Resetting all menus...");
@@ -230,7 +230,6 @@ const App = () => {
         document.removeEventListener("keypress", keyPressEventHandler);
     }
   }, [
-    toggleHelpMenu,
     cycleNextTab,
     cyclePrevTab,
     goBack,
@@ -240,8 +239,6 @@ const App = () => {
     isNxAvailable,
     nx,
   ]);
-
-  const closeModal = () => toggleHelpMenu();
 
   return (
     <div className="app">
@@ -341,12 +338,7 @@ const App = () => {
           )}
 
           <Transition show={showHelpMenu} as={Fragment}>
-            <Dialog
-              as="div"
-              className="relative z-10"
-              open={showHelpMenu}
-              onClose={closeModal}
-            >
+            <Dialog open={showHelpMenu} onClose={() => setShowHelpMenu(false)}>
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -376,9 +368,12 @@ const App = () => {
                         className="flex text-2xl font-medium leading-6 text-gray-900"
                       >
                         <span>Training Modpack Help</span>
-                        <span className="text-base ml-auto">
-                          &#xE0E3; Close Help Menu
-                        </span>
+                        <button
+                          className="text-base ml-auto focus-visible:outline-none"
+                          onClick={() => setShowHelpMenu(false)}
+                        >
+                          <span>&#xE0E3; Close Help Menu</span>
+                        </button>
                       </Dialog.Title>
                       <div className="flex flex-col h-full mt-4 text-gray-800">
                         <span className="inline-flex text-lg items-center">
