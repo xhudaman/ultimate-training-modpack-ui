@@ -13,8 +13,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Test some vars
-        run: "echo ${{ github.event }}"
+      - name: Debug action
+        uses: hmarr/debug-action@v2.1.0
+
       # - name: Setup Node
       #   uses: actions/setup-node@v3
       #   with:
