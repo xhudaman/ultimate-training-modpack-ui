@@ -51,8 +51,8 @@ jobs:
         uses: thedoctor0/zip-release@main
         with:
           type: "zip"
-          filename: "training-modpack-ui.zip"
-          path: "./build/*"
+          filename: "../training-modpack-ui.zip"
+          directory: build
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
