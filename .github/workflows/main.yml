@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feature/add-ci
 
 jobs:
   build-and-release:
@@ -65,7 +64,3 @@ jobs:
           files: training-modpack-ui.zip
           body: |
             ## Changes
-          append_body: |
-            - Testing
-
-          # ${{ github.event.head_commit.message }} ([PR](${{ github.event.repository.pulls_url }})) @${{ github.event.head_commit.author.username }}
